@@ -11,42 +11,35 @@ public class UpdateActivity extends AppCompatActivity {
 
     private EditText etProductName, etProductDescription, etProductStock;
     private int productId;
-    private DatabaseHelper dbHelper; // Veritabanı işlemleri için dbHelper
+    private DatabaseHelper dbHelper; 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_update); // UpdateActivity için layout
+        setContentView(R.layout.activity_update);
 
-        // Veritabanı yardımcı sınıfını başlatıyoruz
-        dbHelper = new DatabaseHelper(this); // dbHelper'ı başlatıyoruz
+        dbHelper = new DatabaseHelper(this);
 
-        // EditText bileşenlerini tanımlama
         etProductName = findViewById(R.id.etProductName);
         etProductDescription = findViewById(R.id.etProductDescription);
         etProductStock = findViewById(R.id.etProductStock);
 
-
-        // Intent'ten gelen verileri alıyoruz
         Intent intent = getIntent();
-        productId = intent.getIntExtra("PRODUCT_ID", -1); // Eğer ID geçilmemişse -1 dönecek
+        productId = intent.getIntExtra("PRODUCT_ID", -1); 
         String productName = intent.getStringExtra("PRODUCT_NAME");
         String productDescription = intent.getStringExtra("PRODUCT_DESCRIPTION");
         int productStock = intent.getIntExtra("PRODUCT_STOCK", 0);
 
-// Null kontrolü ekleyin
         if (productName == null || productDescription == null || productStock == 0) {
             Toast.makeText(this, "Veriler eksik, güncelleme yapılamaz", Toast.LENGTH_SHORT).show();
             return;
         }
 
-// EditText alanlarına verileri yerleştiriyoruz
         etProductName.setText(productName);
         etProductDescription.setText(productDescription);
         etProductStock.setText(String.valueOf(productStock));
     }
 
-    // Güncelleme işlemi için metod
     public void updateProduct(View view) {
         String name = etProductName.getText().toString();
         String description = etProductDescription.getText().toString();
@@ -55,11 +48,10 @@ public class UpdateActivity extends AppCompatActivity {
         if (!name.isEmpty() && !description.isEmpty() && !stockText.isEmpty()) {
             int stock = Integer.parseInt(stockText);
 
-            // Veritabanında güncellemeyi yapacak bir metod çağrılacak
-            dbHelper.updateProduct(productId, name, description, stock); // Veritabanı işlemi
+            dbHelper.updateProduct(productId, name, description, stock); 
 
             Toast.makeText(this, "Ürün Güncellendi", Toast.LENGTH_SHORT).show();
-            finish(); // Güncelleme işlemi tamamlandığında Activity'yi kapatıyoruz
+            finish();
         } else {
             Toast.makeText(this, "Lütfen tüm alanları doldurun", Toast.LENGTH_SHORT).show();
         }
