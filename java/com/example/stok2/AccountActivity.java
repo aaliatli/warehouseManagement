@@ -17,7 +17,6 @@ public class AccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account); 
 
-        // UI bileşenlerini bağlama
         tvUsername = findViewById(R.id.tvUsername);
         tvEmail = findViewById(R.id.tvEmail);
         btnLogout = findViewById(R.id.btnLogout);
