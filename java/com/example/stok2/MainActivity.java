@@ -29,11 +29,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Toolbar'ı ayarlıyoruz
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // Veritabanı ve UI elemanlarını tanımlıyoruz
         dbHelper = new DatabaseHelper(this);
         etProductName = findViewById(R.id.etProductName);
         etProductDescription = findViewById(R.id.etProductDescription);
@@ -64,9 +62,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
-        loadProducts(); // Ürünleri listele
-
-        // Ürün ekleme butonuna tıklama olayı
+        loadProducts(); 
         btnAddProduct.setOnClickListener(v -> {
             String name = etProductName.getText().toString();
             String description = etProductDescription.getText().toString();
@@ -83,21 +79,18 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // Ürünleri veritabanından yükleyip RecyclerView'e aktarır
     private void loadProducts() {
         productList.clear();
         productList.addAll(dbHelper.getAllProducts());
         adapter.notifyDataSetChanged();
     }
 
-    // Menü oluşturma
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
 
-    // Menüdeki butonlara tıklama olayları
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_account) {
@@ -110,10 +103,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // Aktivite yeniden görünür olduğunda ürünleri yeniden yükler
     @Override
     protected void onResume() {
         super.onResume();
-        loadProducts();  // MainActivity yeniden görünür olduğunda verileri tekrar yükleyin
+        loadProducts();  
     }
 }
