@@ -20,12 +20,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     private OnProductDeleteListener deleteListener;
     private OnProductClickListener clickListener;
 
-    // Silme işlemi için listener
     public interface OnProductDeleteListener {
         void onDelete(int position);
     }
 
-    // Ürün tıklama işlemi için listener
     public interface OnProductClickListener {
         void onClick(int position);
     }
@@ -49,10 +47,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         holder.productDescription.setText(product.getDescription());
         holder.productStock.setText("Stok: " + product.getStock());
 
-        // Silme butonuna tıklama
         holder.deleteButton.setOnClickListener(v -> deleteListener.onDelete(position));
 
-        // Ürün tıklama işlemi
         holder.itemView.setOnClickListener(v -> clickListener.onClick(position));
     }
 
